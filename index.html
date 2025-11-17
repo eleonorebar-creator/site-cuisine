@@ -1,141 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recettes Gourmandes – Cuisine Maison</title>
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Google Font manuscrite -->
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recettes Gourmandes</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<header>
-    <h1>Recettes Gourmandes</h1>
-    <p class="subtitle">Découvrez des recettes simples et savoureuses pour tous les jours !</p>
-</header>
-
-<nav class="main-nav">
-    <button data-section="accueil">Accueil</button>
-    <button data-section="recettes">Toutes les recettes</button>
-    <button data-section="menu-semaine">Menu de la semaine</button>
-    <button data-section="favoris">Favoris</button>
-</nav>
-
-<!-- SECTION ACCUEIL -->
-<section id="accueil" class="section active">
-    <div class="hero">
-        <img src="https://picsum.photos/1200/400?food" alt="Bannière gourmande">
-        <div class="hero-text">Des recettes faciles, rapides et pleines de goût.</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Recettes Gourmandes</h1>
+      <p class="tagline">Découvrez des recettes simples et savoureuses pour tous les jours !</p>
+      <nav class="main-nav">
+        <button id="nav-all" class="nav-btn active">Accueil</button>
+        <button id="nav-recipes" class="nav-btn">Toutes les recettes</button>
+        <button id="nav-week" class="nav-btn">Menu de la semaine</button>
+        <button id="nav-favs" class="nav-btn">Favoris</button>
+      </nav>
     </div>
+    <div class="hero">
+      <!-- Placeholder image - remplacer par votre image via URL ou /images/ -->
+      <img id="hero-img" src="https://via.placeholder.com/1400x420?text=Plat+gourmand" alt="Plat mis en valeur">
+      <div class="hero-overlay">
+        <h2>Découvrez des recettes simples et savoureuses pour tous les jours !</h2>
+        <div class="search-row">
+          <input id="search" placeholder="Rechercher par ingrédient (p.ex. poulet, pâtes)..." />
+          <button id="search-btn">🔍</button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <h2>Catégories</h2>
-    <div class="categories">
+  <main class="container">
+    <section class="categories" aria-label="Catégories">
+      <h3>Catégories</h3>
+      <div class="cats">
         <button class="cat-btn" data-cat="Entrées">Entrées</button>
         <button class="cat-btn" data-cat="Plats">Plats</button>
         <button class="cat-btn" data-cat="Desserts">Desserts</button>
         <button class="cat-btn" data-cat="Cuisine du monde">Cuisine du monde</button>
-        <button class="cat-btn" data-cat="Végétarien">Végétarien</button>
-        <button class="cat-btn" data-cat="Rapide">Rapide (-20 min)</button>
-    </div>
-</section>
+        <button class="cat-btn" data-cat="Végétarien">Recettes végétariennes</button>
+        <button class="cat-btn" data-cat="Rapide">Recettes rapides (≤20 min)</button>
+      </div>
+    </section>
 
-<!-- SECTION RECETTES -->
-<section id="recettes" class="section">
-    <h2>Toutes les recettes</h2>
-
-    <div class="search-filters">
-        <input type="text" id="searchInput" placeholder="Rechercher par ingrédient...">
-        <select id="filterLevel">
-            <option value="">Niveau</option>
+    <section id="recipes-section" class="recipes-section">
+      <div class="controls">
+        <label> Niveau :
+          <select id="level-filter">
+            <option value="all">Tous</option>
             <option value="Débutant">Débutant</option>
             <option value="Intermédiaire">Intermédiaire</option>
             <option value="Expert">Expert</option>
-        </select>
+          </select>
+        </label>
+        <button id="generate-week">Générer un nouveau menu</button>
+      </div>
+
+      <div id="recipes-grid" class="recipes-grid" aria-live="polite">
+        <!-- cartes recettes injectées par JS -->
+      </div>
+    </section>
+
+    <section id="week-menu" class="week-menu hidden">
+      <h3>Menu de la semaine</h3>
+      <div id="week-list" class="week-list"></div>
+    </section>
+
+    <section id="fav-section" class="fav-section hidden">
+      <h3>Vos favoris</h3>
+      <div id="favs-grid" class="recipes-grid"></div>
+    </section>
+  </main>
+
+  <!-- Modal fiche recette -->
+  <div id="recipe-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal">×</button>
+      <div id="modal-body"></div>
     </div>
+  </div>
 
-    <div id="recipesContainer" class="recipes-grid"></div>
-</section>
+  <footer class="site-footer">
+    <p>© Recettes Gourmandes — Fait maison 🍽️</p>
+  </footer>
 
-<!-- SECTION MENU DE LA SEMAINE -->
-<section id="menu-semaine" class="section">
-    <h2>Menu de la semaine</h2>
-    <button id="generateMenu">Générer un nouveau menu</button>
-    <div id="menuContainer" class="menu-grid"></div>
-</section>
-
-<!-- SECTION FAVORIS -->
-<section id="favoris" class="section">
-    <h2>Vos favoris</h2>
-    <div id="favorisContainer" class="recipes-grid"></div>
-</section>
-
-<!-- POPUP FICHE RECETTE -->
-<div id="recipePopup" class="popup hidden">
-    <div class="popup-content">
-        <span id="closePopup" class="close-btn">&times;</span>
-        <h3 id="popupTitle"></h3>
-        <img id="popupImg" alt="">
-        <p id="popupInfo"></p>
-        <h4>Ingrédients</h4>
-        <ul id="popupIngredients"></ul>
-        <h4>Étapes</h4>
-        <ol id="popupSteps"></ol>
-        <p class="conseil"><strong>Conseil :</strong> <span id="popupConseil"></span></p>
-        <button id="addFavorisBtn">Ajouter aux favoris ⭐</button>
-    </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recettes de Cuisine</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-    <header>
-        <div class="banner">
-            <img src="https://picsum.photos/1200/400?random=1" alt="Recette Gourmande" class="banner-img">
-            <h1>Découvrez des recettes simples et savoureuses pour tous les jours !</h1>
-        </div>
-        <nav class="categories">
-            <button class="category-btn" onclick="filterRecipes('Entrées')">Entrées</button>
-            <button class="category-btn" onclick="filterRecipes('Plats')">Plats</button>
-            <button class="category-btn" onclick="filterRecipes('Desserts')">Desserts</button>
-            <button class="category-btn" onclick="filterRecipes('Cuisine du monde')">Cuisine du monde</button>
-            <button class="category-btn" onclick="filterRecipes('Végétariennes')">Végétariennes</button>
-            <button class="category-btn" onclick="filterRecipes('Rapide')">Recettes Rapides</button>
-        </nav>
-    </header>
-
-    <main>
-        <section class="recipe-list" id="recipe-list">
-            <!-- Les recettes filtrées s'afficheront ici -->
-        </section>
-    </main>
-
-    <div class="modal" id="recipe-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modal-recipe-name"></h2>
-            <img id="modal-recipe-image" src="" alt="Image de la recette">
-            <h3>Ingrédients</h3>
-            <ul id="modal-recipe-ingredients"></ul>
-            <h3>Étapes</h3>
-            <ol id="modal-recipe-steps"></ol>
-            <h3>Conseil</h3>
-            <p id="modal-recipe-conseil"></p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
