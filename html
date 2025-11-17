@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recettes Gourmandes – Cuisine Maison</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Font manuscrite -->
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header>
+    <h1>Recettes Gourmandes</h1>
+    <p class="subtitle">Découvrez des recettes simples et savoureuses pour tous les jours !</p>
+</header>
+
+<nav class="main-nav">
+    <button data-section="accueil">Accueil</button>
+    <button data-section="recettes">Toutes les recettes</button>
+    <button data-section="menu-semaine">Menu de la semaine</button>
+    <button data-section="favoris">Favoris</button>
+</nav>
+
+<!-- SECTION ACCUEIL -->
+<section id="accueil" class="section active">
+    <div class="hero">
+        <img src="https://picsum.photos/1200/400?food" alt="Bannière gourmande">
+        <div class="hero-text">Des recettes faciles, rapides et pleines de goût.</div>
+    </div>
+
+    <h2>Catégories</h2>
+    <div class="categories">
+        <button class="cat-btn" data-cat="Entrées">Entrées</button>
+        <button class="cat-btn" data-cat="Plats">Plats</button>
+        <button class="cat-btn" data-cat="Desserts">Desserts</button>
+        <button class="cat-btn" data-cat="Cuisine du monde">Cuisine du monde</button>
+        <button class="cat-btn" data-cat="Végétarien">Végétarien</button>
+        <button class="cat-btn" data-cat="Rapide">Rapide (-20 min)</button>
+    </div>
+</section>
+
+<!-- SECTION RECETTES -->
+<section id="recettes" class="section">
+    <h2>Toutes les recettes</h2>
+
+    <div class="search-filters">
+        <input type="text" id="searchInput" placeholder="Rechercher par ingrédient...">
+        <select id="filterLevel">
+            <option value="">Niveau</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Intermédiaire">Intermédiaire</option>
+            <option value="Expert">Expert</option>
+        </select>
+    </div>
+
+    <div id="recipesContainer" class="recipes-grid"></div>
+</section>
+
+<!-- SECTION MENU DE LA SEMAINE -->
+<section id="menu-semaine" class="section">
+    <h2>Menu de la semaine</h2>
+    <button id="generateMenu">Générer un nouveau menu</button>
+    <div id="menuContainer" class="menu-grid"></div>
+</section>
+
+<!-- SECTION FAVORIS -->
+<section id="favoris" class="section">
+    <h2>Vos favoris</h2>
+    <div id="favorisContainer" class="recipes-grid"></div>
+</section>
+
+<!-- POPUP FICHE RECETTE -->
+<div id="recipePopup" class="popup hidden">
+    <div class="popup-content">
+        <span id="closePopup" class="close-btn">&times;</span>
+        <h3 id="popupTitle"></h3>
+        <img id="popupImg" alt="">
+        <p id="popupInfo"></p>
+        <h4>Ingrédients</h4>
+        <ul id="popupIngredients"></ul>
+        <h4>Étapes</h4>
+        <ol id="popupSteps"></ol>
+        <p class="conseil"><strong>Conseil :</strong> <span id="popupConseil"></span></p>
+        <button id="addFavorisBtn">Ajouter aux favoris ⭐</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recettes de Cuisine</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="banner">
+            <img src="https://picsum.photos/1200/400?random=1" alt="Recette Gourmande" class="banner-img">
+            <h1>Découvrez des recettes simples et savoureuses pour tous les jours !</h1>
+        </div>
+        <nav class="categories">
+            <button class="category-btn" onclick="filterRecipes('Entrées')">Entrées</button>
+            <button class="category-btn" onclick="filterRecipes('Plats')">Plats</button>
+            <button class="category-btn" onclick="filterRecipes('Desserts')">Desserts</button>
+            <button class="category-btn" onclick="filterRecipes('Cuisine du monde')">Cuisine du monde</button>
+            <button class="category-btn" onclick="filterRecipes('Végétariennes')">Végétariennes</button>
+            <button class="category-btn" onclick="filterRecipes('Rapide')">Recettes Rapides</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="recipe-list" id="recipe-list">
+            <!-- Les recettes filtrées s'afficheront ici -->
+        </section>
+    </main>
+
+    <div class="modal" id="recipe-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-recipe-name"></h2>
+            <img id="modal-recipe-image" src="" alt="Image de la recette">
+            <h3>Ingrédients</h3>
+            <ul id="modal-recipe-ingredients"></ul>
+            <h3>Étapes</h3>
+            <ol id="modal-recipe-steps"></ol>
+            <h3>Conseil</h3>
+            <p id="modal-recipe-conseil"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
